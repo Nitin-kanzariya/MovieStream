@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateMovieMutation } from "../../redux/api/movies";
 import { useFetchGenresQuery } from "../../redux/api/genre";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Star } from "lucide-react";
 import Sidebar from "./Dashboard/Sidebar/Sidebar";
@@ -35,40 +35,39 @@ const CreateMovie = () => {
   }, [genres]);
 
   const handleChange = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
 
-  if (name === "year") {
-    // Ensure the value is a 4-digit number
-    if (value.length <= 4 && /^[0-9]*$/.test(value)) {
-      const yearValue = parseInt(value) || "";
+    if (name === "year") {
+      // Ensure the value is a 4-digit number
+      if (value.length <= 4 && /^[0-9]*$/.test(value)) {
+        const yearValue = parseInt(value) || "";
 
-      // Validate year range
-      if (yearValue < 1995 || yearValue > 2024) {
-        toast.error("Year must be between 1995 and 2024", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        // Validate year range
+        if (yearValue < 1995 || yearValue > 2024) {
+          toast.error("Year must be between 1995 and 2024", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+
+        setMovieData((prevData) => ({
+          ...prevData,
+          [name]: yearValue,
+        }));
       }
-
+    } else {
       setMovieData((prevData) => ({
         ...prevData,
-        [name]: yearValue,
+        [name]: value,
       }));
     }
-  } else {
-    setMovieData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }
-};
-
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -191,7 +190,7 @@ const CreateMovie = () => {
 
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <div className="flex h-screen bg-gray-900 overflow-hidden mt-12">
         <div className="flex-1 overflow-hidden">
           <div className="h-full overflow-y-auto px-8 py-6">
