@@ -7,7 +7,7 @@ import {
   addFavorite,
   removeFavorite,
 } from "../../redux/features/movies/favoritesSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const MovieCard = ({ movie }) => {
   const { data: genres } = useFetchGenresQuery();
@@ -18,28 +18,10 @@ const MovieCard = ({ movie }) => {
   const handleLike = () => {
     if (isLiked) {
       dispatch(removeFavorite(movie));
-      toast.success(`${movie.name} removed from favorites`, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success(`${movie.name} removed from favorites`);
     } else {
       dispatch(addFavorite(movie));
-      toast.success(`${movie.name} added to favorites`, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success(`${movie.name} added to favorites`);
     }
   };
 

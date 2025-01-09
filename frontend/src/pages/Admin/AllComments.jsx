@@ -3,7 +3,7 @@ import {
   useDeleteCommentMutation,
   useGetAllMoviesQuery,
 } from "../../redux/api/movies";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import { Trash2 } from "lucide-react";
 
@@ -23,21 +23,6 @@ const AllComments = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        style={{
-          zIndex: 10,
-        }}
-      />
       <div className="min-h-screen bg-gray-300 mt-[50px]">
         <div className="flex flex-col lg:flex-row">
           <main className="flex-1 p-4 lg:p-8">

@@ -29,38 +29,43 @@ import NotFound from "./pages/User/NotFound.jsx";
 import About from "./pages/Movies/About.jsx";
 import FavoriteMovies from "./pages/Movies/FavoriteMovies.jsx";
 
+import { Toaster } from "react-hot-toast";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<Home />} />
-      <Route path="/movies" element={<AllMovies />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/movies/:id" element={<MovieDetails />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/movies/favorites" element={<FavoriteMovies />} />
+    <>
+      <Route path="/" element={<App />}>
+        <Route index={true} path="/" element={<Home />} />
+        <Route path="/movies" element={<AllMovies />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/movies/:id" element={<MovieDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/movies/favorites" element={<FavoriteMovies />} />
 
-      <Route path="" element={<PrivateRoute />}>
-        <Route path="/profile" element={<Profile />} />
+        <Route path="" element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
+        <Route path="" element={<AdminRoute />}>
+          <Route path="/admin/movies/genre" element={<GenreList />} />
+          <Route path="/admin/movies/create" element={<CreateMovie />} />
+          <Route path="/admin/movies-list" element={<AdminMoviesList />} />
+          <Route path="/admin/movies/update/:id" element={<UpdateMovie />} />
+          <Route path="/admin/movies/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/movies/comments" element={<AllComments />} />
+          <Route path="/admin/movies/top" element={<TopMoviesPage />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
-
-      <Route path="" element={<AdminRoute />}>
-        <Route path="/admin/movies/genre" element={<GenreList />} />
-        <Route path="/admin/movies/create" element={<CreateMovie />} />
-        <Route path="/admin/movies-list" element={<AdminMoviesList />} />
-        <Route path="/admin/movies/update/:id" element={<UpdateMovie />} />
-        <Route path="/admin/movies/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/movies/comments" element={<AllComments />} />
-        <Route path="/admin/movies/top" element={<TopMoviesPage />} />
-      </Route>
-
-      <Route path="*" element={<NotFound />} />
-    </Route>
+    </>
   )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <RouterProvider router={router} />
+    <Toaster />
   </Provider>
 );

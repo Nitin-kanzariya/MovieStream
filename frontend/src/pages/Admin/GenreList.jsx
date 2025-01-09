@@ -5,10 +5,10 @@ import {
   useDeleteGenreMutation,
   useFetchGenresQuery,
 } from "../../redux/api/genre";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GenreForm from "../../component/GenreForm";
 import Modal from "../../component/Modal";
+import { toast } from "react-hot-toast";
 
 const GenreList = () => {
   const { data: genres, refetch } = useFetchGenresQuery();
@@ -25,16 +25,7 @@ const GenreList = () => {
     e.preventDefault();
 
     if (!name) {
-      toast.error("Genre name is required", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Genre name is required");
       return;
     }
 
@@ -42,42 +33,15 @@ const GenreList = () => {
       const result = await createGenre({ name }).unwrap();
 
       if (result.error) {
-        toast.error(result.error, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(result.error);
       } else {
         setName("");
-        toast.success(`${result.name} is created.`, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.success(`${result.name} is created.`);
         refetch();
       }
     } catch (error) {
       console.error(error);
-      toast.error("Creating genre failed, try again.", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Creating genre failed, try again.");
     }
   };
 
@@ -85,16 +49,7 @@ const GenreList = () => {
     e.preventDefault();
 
     if (!updateGenre) {
-      toast.error("Genre name is required", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Genre name is required");
       return;
     }
 
@@ -107,27 +62,9 @@ const GenreList = () => {
       }).unwrap();
 
       if (result.error) {
-        toast.error(result.error, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(result.error);
       } else {
-        toast.success(`${result.name} is updated`, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.success(`${result.name} is updated`);
         refetch();
         setSelectedGenre(null);
         setUpdatingName("");
@@ -158,7 +95,6 @@ const GenreList = () => {
 
   return (
     <>
-      <ToastContainer />
       <div className="min-h-screen bg-gray-900 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto mt-12">
           {/* Main Content Container */}

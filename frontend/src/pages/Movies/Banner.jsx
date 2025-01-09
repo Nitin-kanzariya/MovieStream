@@ -55,7 +55,7 @@ const Banner = () => {
 
   const { data: allMovies } = useGetAllMoviesQuery();
 
-  useEffect(() => { 
+  useEffect(() => {
     if(window.localStorage.getItem("userInfo")){
       setUserinfo(true);
     }
@@ -457,3 +457,4 @@ export default Banner;
 // };
 
 // export default Banner;
+

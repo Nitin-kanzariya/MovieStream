@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./pages/Movies/Header";
 
@@ -21,11 +20,11 @@ const App = () => {
       "/about",
       "/admin/movies/top",
       "/admin/movies/update/:id",
-    ].includes(location.pathname) || /^\/admin\/movies\/update\/[^/]+$/.test(location.pathname);
+    ].includes(location.pathname) ||
+    /^\/admin\/movies\/update\/[^/]+$/.test(location.pathname);
 
   return (
     <>
-      <ToastContainer />
       <main>
         {showHeader && <Header />}
         <Outlet />

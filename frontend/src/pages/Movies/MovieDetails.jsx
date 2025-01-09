@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useParams, Link,useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { useFetchGenresQuery } from "../../redux/api/genre";
 import {
   useGetSpecificMovieQuery,
@@ -16,6 +15,7 @@ import {
   Users,
   FilmIcon,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const MovieDetails = () => {
   const { id: movieId } = useParams();
@@ -54,27 +54,9 @@ const MovieDetails = () => {
         comment,
       }).unwrap();
       refetch();
-      toast.success("Review created successfully", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success("Review created successfully");
     } catch (error) {
-      toast.error(error.data || error.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error(error.data || error.message);
     }
   };
 

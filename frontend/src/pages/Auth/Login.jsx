@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../component/Loader";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../redux/api/users";
-import { toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the toast styles
 import bg from "../../assets/login_half.png";
 import logo from "../../assets/play-box-logo.png";
 import Cookies from "js-cookie"; // Import js-cookie
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -72,48 +72,19 @@ const Login = () => {
       try {
         const res = await login(formData).unwrap();
         dispatch(setCredentials({ ...res }));
-        toast.success("Login successful!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-
+        toast.success("Login successful!");
       } catch (err) {
-        toast.error(err.data?.message || "Login failed. Please try again.", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(err.data?.message || "Login failed. Please try again.");
       }
     } else {
       // Display first error message
       const firstError = Object.values(errors)[0];
-      toast.error(firstError, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error(firstError);
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-[#050813]">
-     
       {/* Left Side */}
       <div className="w-full md:w-[40%] flex flex-col justify-center items-center md:items-start px-6 md:pl-[5rem] text-white">
         <div className="mb-8">

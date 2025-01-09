@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../component/Loader";
 import { useRegisterMutation } from "../../redux/api/users";
-import { toast } from "react-toastify";
+
 import { setCredentials } from "../../redux/features/auth/authSlice";
 
 import logo from "../../assets/play-box-logo.png";
@@ -11,6 +11,7 @@ import netflix from "../../assets/netflix.png";
 import mx from "../../assets/mx.jpg";
 import disney from "../../assets/disney.jpg";
 import prime from "../../assets/prime.png";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const packages = [
@@ -106,16 +107,7 @@ const Register = () => {
 
     if (!selectedPackage) {
       newErrors.package = "Please select a subscription package";
-      toast.error("Please select a subscription package", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Please select a subscription package");
     }
 
     setErrors(newErrors);
@@ -152,19 +144,7 @@ const Register = () => {
         const response = await register(payload).unwrap();
 
         // Show success toast and wait for it to complete before navigating
-        toast.success("Registration successful! Please log in.", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          onClose: () => {
-            navigate("/login");
-          },
-        });
+        toast.success("Registration successful! Please log in.");
 
         // Add a small delay before navigation to ensure toast is visible
         setTimeout(() => {
@@ -173,17 +153,7 @@ const Register = () => {
       } catch (err) {
         console.error("Registration error:", err);
         toast.error(
-          err?.data?.message || "Registration failed. Please try again.",
-          {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          }
+          err?.data?.message || "Registration failed. Please try again."
         );
       }
     }

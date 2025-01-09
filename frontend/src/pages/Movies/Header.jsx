@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/users";
 import { logout } from "../../redux/features/auth/authSlice";
 import { Menu, X } from "lucide-react";
+import toast from "react-hot-toast";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
@@ -24,6 +25,7 @@ const Header = () => {
       await logoutApiCall().unwrap();
       dispatch(logout());
       navigate("/login");
+      toast.success("Logged out successfully");
     } catch (error) {
       console.error(error);
     }

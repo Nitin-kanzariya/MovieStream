@@ -7,9 +7,8 @@ import {
   useDeleteMovieMutation,
 } from "../../redux/api/movies";
 import { useFetchGenresQuery } from "../../redux/api/genre";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Star } from "lucide-react";
+import toast from "react-hot-toast";
 
 const UpdateMovie = () => {
   const { id } = useParams();
@@ -152,16 +151,7 @@ const UpdateMovie = () => {
         !selectedImage &&
         !selectedVideo
       ) {
-        toast.info("No changes detected", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.info("No changes detected");
         return;
       }
 
@@ -202,43 +192,16 @@ const UpdateMovie = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message || "Movie updated successfully!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.success(response.data.message || "Movie updated successfully!");
         setTimeout(() => {
           window.location.href = "/admin/movies-list";
         }, 1000); // Added delay for toast visibility
       } else {
-        toast.error(response.data.message || "Update failed!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(response.data.message || "Update failed!");
       }
     } catch (error) {
       console.error("Error updating movie:", error);
-      toast.error(error.response?.data?.message || "Failed to update movie", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error(error.response?.data?.message || "Failed to update movie");
     } finally {
       setLoading(false);
     }
@@ -256,46 +219,16 @@ const UpdateMovie = () => {
         );
 
         if (response.data.success) {
-          toast.success(
-            response.data.message || "Movie deleted successfully!",
-            {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            }
-          );
+          toast.success(response.data.message || "Movie deleted successfully!");
           setTimeout(() => {
             window.location.href = "/admin/movies-list";
           }, 1000); // Added delay for toast visibility
         } else {
-          toast.error(response.data.message || "Deletion failed!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+          toast.error(response.data.message || "Deletion failed!");
         }
       } catch (error) {
         console.error("Error deleting movie:", error);
-        toast.error(error.response?.data?.message || "Failed to delete movie", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(error.response?.data?.message || "Failed to delete movie");
       } finally {
         setLoading(false);
       }
@@ -304,7 +237,6 @@ const UpdateMovie = () => {
 
   return (
     <>
-      <ToastContainer />
       <div className="min-h-screen bg-gray-950 p-6 mt-12">
         <div className="max-w-7xl mx-auto bg-gray-900 rounded-xl shadow-xl p-8">
           <h1 className="text-3xl font-bold text-white mb-8 pb-4 border-b border-gray-700">
