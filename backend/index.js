@@ -18,7 +18,7 @@ const app = express();
 // Allow requests from any origin
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://movie-stream-v1.netlify.app"],
+    origin: ["http://localhost:5173", "https://movie-stream-tube.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
