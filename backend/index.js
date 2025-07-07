@@ -16,16 +16,15 @@ connectDB();
 const app = express();
 
 // Allow requests from any origin
-// app.use(
-//   cors({
-//     origin: ["http://localhost:5173", "https://movie-stream-tube.vercel.app/"],
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://movie-stream-tube.vercel.app/"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
-app.use(cors());
 
 // middlewares
 app.use(express.json());
