@@ -39,4 +39,8 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/genre", genreRoutes);
 app.use("/api/v1/movies", moviesRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Movie Stream API");
+});
+
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

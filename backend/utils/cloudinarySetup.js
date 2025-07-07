@@ -1,9 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-  cloud_name: "playboxx",
-  api_key: "151988823294464",
-  api_secret: "-X-lMU5bZ5du6iDf6ftShKGFDE4",
+  cloud_name: "dhj4cv0ch",
+  api_key: "294158828473591",
+  api_secret: "n92LaoqnGso2_xAF1vte_CzT5XU",
 });
 
 // Function to upload a file buffer to Cloudinary using a stream

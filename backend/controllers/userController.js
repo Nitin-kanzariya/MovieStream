@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import asyncHandler from "../middlewares/asyncHandler.js";
-import createToken from "../utils/createToken.js";
+import generateToken from "../utils/createToken.js";
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password, tier } = req.body;
@@ -16,11 +16,18 @@ const createUser = asyncHandler(async (req, res) => {
   // Hash the user password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const newUser = new User({ username, email, password: hashedPassword, tier: tier });
+
+  // ✅ Define newUser here
+  const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+    tier,
+  });
 
   try {
     await newUser.save();
-    createToken(res, newUser._id);
+    generateToken(res, newUser._id);
 
     res.status(201).json({
       _id: newUser._id,
@@ -30,11 +37,11 @@ const createUser = asyncHandler(async (req, res) => {
       tier: newUser.tier,
     });
   } catch (error) {
+    console.error("Error creating user:", error);
     res.status(400);
     throw new Error("Invalid user data");
   }
 });
-
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -48,7 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 
     if (isPasswordValid) {
-      createToken(res, existingUser._id);
+      generateToken(res, existingUser._id);
 
       res.status(201).json({
         _id: existingUser._id,
@@ -65,7 +72,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-
 const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
@@ -75,12 +81,10 @@ const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 });
 
-
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
-
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -90,14 +94,13 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      tier: newUser.tier,
+      tier: user.tier,
     });
   } else {
     res.status(404);
     throw new Error("User not found.");
   }
 });
-
 
 const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
